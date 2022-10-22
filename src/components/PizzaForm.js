@@ -1,8 +1,8 @@
 import React from "react";
 
-function PizzaForm() {
+function PizzaForm({selectedPizza, editPizza, changePizza}) {
   return (
-    <form onSubmit={null /*handle that submit*/}>
+    <form onSubmit={changePizza}>
       <div className="form-row">
         <div className="col-5">
           <input
@@ -10,10 +10,13 @@ function PizzaForm() {
             type="text"
             name="topping"
             placeholder="Pizza Topping"
+            value={selectedPizza.topping}
+            onChange = {(e) => {editPizza(e.target.name, e.target.value)}}
           />
         </div>
         <div className="col">
-          <select className="form-control" name="size">
+          <select className="form-control" name="size" value = {selectedPizza.size}
+                  onChange = {(e) => {editPizza(e.target.name, e.target.value)}}>
             <option value="Small">Small</option>
             <option value="Medium">Medium</option>
             <option value="Large">Large</option>
@@ -26,6 +29,8 @@ function PizzaForm() {
               type="radio"
               name="vegetarian"
               value="Vegetarian"
+              checked={selectedPizza.vegetarian}
+              onChange={(e) => {editPizza(e.target.name, true)}}
             />
             <label className="form-check-label">Vegetarian</label>
           </div>
@@ -35,6 +40,8 @@ function PizzaForm() {
               type="radio"
               name="vegetarian"
               value="Not Vegetarian"
+              checked={!selectedPizza.vegetarian}
+              onChange={(e) => {editPizza(e.target.name, false)}}
             />
             <label className="form-check-label">Not Vegetarian</label>
           </div>
